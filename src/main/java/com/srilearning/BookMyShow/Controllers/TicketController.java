@@ -2,7 +2,6 @@ package com.srilearning.BookMyShow.Controllers;
 
 import com.srilearning.BookMyShow.DTOs.GenerateTicketRequestDTO;
 import com.srilearning.BookMyShow.DTOs.GenerateTicketResponseDTO;
-import com.srilearning.BookMyShow.Exceptions.UserNotAvailableException;
 import com.srilearning.BookMyShow.Models.ResponseStatus;
 import com.srilearning.BookMyShow.Models.Ticket;
 import com.srilearning.BookMyShow.Services.TicketService;
@@ -19,7 +18,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping(path="genTicket")
+    @GetMapping(path="genTicket") // Need to code @RequestBody annotation and make it Post request...
     public GenerateTicketResponseDTO generateTicket(GenerateTicketRequestDTO generateTicketRequestDTO)
     {
         GenerateTicketResponseDTO generateTicketResponseDTO = new GenerateTicketResponseDTO();
