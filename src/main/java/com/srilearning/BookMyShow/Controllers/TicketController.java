@@ -6,20 +6,24 @@ import com.srilearning.BookMyShow.Models.ResponseStatus;
 import com.srilearning.BookMyShow.Models.Ticket;
 import com.srilearning.BookMyShow.Services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TicketController {
     TicketService ticketService;
 
-    @Autowired
+     @Autowired
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
-    @GetMapping(path="genTicket") // Need to code @RequestBody annotation and make it Post request...
-    public GenerateTicketResponseDTO generateTicket(GenerateTicketRequestDTO generateTicketRequestDTO)
+    @PostMapping(path="/ticket") // Need to code @RequestBody annotation and make it Post request...
+    public @ResponseBody ResponseEntity<GenerateTicketResponseDTO> generateTicket(@RequestBody GenerateTicketRequestDTO generateTicketRequestDTO)
     {
         GenerateTicketResponseDTO generateTicketResponseDTO = new GenerateTicketResponseDTO();
         try {
@@ -33,6 +37,6 @@ public class TicketController {
             System.out.println(e.getMessage() + " Hence, Ticket cannot be generated");
             generateTicketResponseDTO.setResponseStatus(ResponseStatus.FAILURE);
         }
-        return generateTicketResponseDTO;
+        return new ResponseEntity<>(generateTicketResponseDTO, HttpStatus.OK);
     }
 }
